@@ -103,7 +103,7 @@ morse_DOT:
    mov r5,lr
    bl initialise_DOT
    bl execute_WAIT
-   @ Because we turn the pin off again, we need to do a minus 1 on BETWEEN_LETTERS and BETWEEN_WORDS
+   @ TODO: Because we turn the pin off again, we need to do a minus 1 on BETWEEN_LETTERS and BETWEEN_WORDS
    bl initialise_OFF
    bl execute_WAIT
    bx r5
@@ -128,7 +128,7 @@ morseSpace:
     b loopIncrement
 
 morseStartSignal:
-    mov r6,lr //Saves lr to r6
+    mov r6,lr                    @ Saves lr to r6
     bl morse_DASH
     bl morse_DOT
     bl morse_DASH
@@ -137,7 +137,7 @@ morseStartSignal:
     bx r6
 
 morseEndSignal:
-    mov r6,lr //Saves lr to r6
+    mov r6,lr                    @ Saves lr to r6
     bl morse_DOT
     bl morse_DASH
     bl morse_DOT
@@ -188,7 +188,7 @@ morse_8_to_9:
     bgt morse_9
 
 
-morseLetter:                @ Pietro A-M, Ladina N-Z
+morseLetter:
     cmp r0, #90
     bgt loopIncrement
     morse_A_to_Z:           @ #-ASCII: [65, 90]
@@ -365,7 +365,6 @@ morse_9:
 
 
 @ Letters --------------------------
-
 morse_A:
     bl morse_DOT
     bl morse_DASH
