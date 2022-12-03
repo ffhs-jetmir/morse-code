@@ -1,17 +1,4 @@
-initialise_DOT:
-   mov r2,=DOT
-   ldr r0,=GPSET0
-   str r1,[r0]
-
-initialise_DASH:
-   mov r2,=DASH
-   ldr r0,=GPSET0
-   str r1,[r0]   
-
-initialise_Off:
-   ldr r0,=GPCLR0
-   str r1,[r0]
-   mov r2,=WITHIN_LETTER_SPACE
+@ TODO: übernehmen und anpassen
 
 initialise_PAUSE_BTWN_LETTERS:
    ldr r0,=GPCLR0
@@ -22,6 +9,29 @@ initialise_BETWEEN_WORDS:
    ldr r0,=GPCLR0
    str r1,[r0]
    mov r2,=BETWEEN_WORDS
+@ --------------------------------
+
+
+
+initialise_DOT:
+   mov r2,=DOT
+   ldr r0,=GPSET0
+   str r1,[r0]
+   bx lr
+
+initialise_DASH:
+   mov r2,=DASH
+   ldr r0,=GPSET0
+   str r1,[r0]
+   bx lr   
+
+initialise_Off:
+   ldr r0,=GPCLR0
+   str r1,[r0]
+   mov r2,=WITHIN_LETTER_SPACE
+   bx lr
+
+
 
 
 /*

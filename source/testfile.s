@@ -82,15 +82,21 @@ checkMorse:
 
 @ ----- Morse instructions; TODO: extract to separate file --------------------
 initialise_DOT:
-   mov r2,#3
+   mov r2,=DOT
+   ldr r0,=GPSET0
+   str r1,[r0]
    bx lr
    
 initialise_DASH:
-   mov r2,#6
+   mov r2,=DASH
+   ldr r0,=GPSET0
+   str r1,[r0]
    bx lr
    
 initialise_OFF:
-   mov r2,#1                    @ This is usually like dot
+   ldr r0,=GPCLR0
+   str r1,[r0]
+   mov r2,=WITHIN_LETTER_SPACE
    bx lr
    
 execute_WAIT:
