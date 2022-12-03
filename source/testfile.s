@@ -244,45 +244,83 @@ morse_X_to_Z:
 
 @ numbers ------------------------- 
 morse_0:
-    @ TODO code for morse 0
-    mov r2, #0  @ TODO remove, just here for testpurposes to see if branching works
+    bl morse_DASH
+    bl morse_DASH
+    bl morse_DASH
+    bl morse_DASH
+    bl morse_DASH
     b loopIncrement
 
 morse_1:
-    @ TODO code for morsing 1
-    mov r2, #1  @ TODO remove, just here for testpurposes to see if branching works
+    bl morse_DOT
+    bl morse_DASH
+    bl morse_DASH
+    bl morse_DASH
+    bl morse_DASH
     b loopIncrement
 
 morse_2:
-    mov r2, #2
+    bl morse_DOT
+    bl morse_DOT
+    bl morse_DASH
+    bl morse_DASH
+    bl morse_DASH
     b loopIncrement
 
 morse_3:
-    mov r2, #3
+    bl morse_DOT
+    bl morse_DOT
+    bl morse_DOT
+    bl morse_DASH
+    bl morse_DASH
     b loopIncrement
 
 morse_4:
-    mov r2, #4
+    bl morse_DOT
+    bl morse_DOT
+    bl morse_DOT
+    bl morse_DOT
+    bl morse_DASH
     b loopIncrement
 
 morse_5:
-    mov r2, #5
+    bl morse_DOT
+    bl morse_DOT
+    bl morse_DOT
+    bl morse_DOT
+    bl morse_DOT
     b loopIncrement
 
 morse_6:
-    mov r2, #6
+    bl morse_DASH
+    bl morse_DOT
+    bl morse_DOT
+    bl morse_DOT
+    bl morse_DOT
     b loopIncrement
 
 morse_7:
-    mov r2, #7
+    bl morse_DASH
+    bl morse_DASH
+    bl morse_DOT
+    bl morse_DOT
+    bl morse_DOT
     b loopIncrement
 
 morse_8:
-    mov r2, #8
+    bl morse_DASH
+    bl morse_DASH
+    bl morse_DASH
+    bl morse_DOT
+    bl morse_DOT
     b loopIncrement
 
 morse_9:
-    mov r2, #9
+    bl morse_DASH
+    bl morse_DASH
+    bl morse_DASH
+    bl morse_DASH
+    bl morse_DOT
     b loopIncrement
 
 
