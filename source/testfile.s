@@ -46,6 +46,7 @@ main:
 
 
 MainLoop:
+    bl initialise_OFF
     bl morseStartSignal
     ldr r10, =morseString            @ load address of string into register
     mov r9,#0                        @ r9: counter of iterations
@@ -54,7 +55,7 @@ MainLoop:
         ldrb r0, [r8]                @ load one byte (-> one letter!) at r8 into r0
         cmp r0, #0                   @ check if value is null -> break
         beq endOfString
-        cmp r0,#97                   @ check if < 97; ASCII boundary for lower case letter
+        cmp r0, #97                   @ check if < 97; ASCII boundary for lower case letter
         blt checkMorse
         cmp r0, #122                 @ check if > 122; ASCII boundary for lower case letter
         bgt checkMorse
@@ -82,25 +83,25 @@ checkMorse:
 
 @ ----- Morse instructions; TODO: extract to separate file --------------------
 initialise_DOT:
-   mov r2,=DOT
+   ldr r2,=DOT
    ldr r0,=GPSET0
    str r1,[r0]
    bx lr
    
 initialise_DASH:
-   mov r2,=DASH
+   ldr r2,=DASH
    ldr r0,=GPSET0
    str r1,[r0]
    bx lr
    
 initialise_OFF:
+   ldr r2,=WITHIN_LETTER_SPACE
    ldr r0,=GPCLR0
    str r1,[r0]
-   mov r2,=WITHIN_LETTER_SPACE
    bx lr
    
 execute_WAIT:
-   sub r2,#3
+   sub r2,#1
    cmp r2,#0   
    bne execute_WAIT
    bx lr

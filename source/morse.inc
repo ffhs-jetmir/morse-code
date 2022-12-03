@@ -14,13 +14,13 @@ initialise_BETWEEN_WORDS:
 
 
 initialise_DOT:
-   mov r2,=DOT
+   ldr r2,=DOT
    ldr r0,=GPSET0
    str r1,[r0]
    bx lr
 
 initialise_DASH:
-   mov r2,=DASH
+   ldr r2,=DASH
    ldr r0,=GPSET0
    str r1,[r0]
    bx lr   
@@ -28,7 +28,7 @@ initialise_DASH:
 initialise_Off:
    ldr r0,=GPCLR0
    str r1,[r0]
-   mov r2,=WITHIN_LETTER_SPACE
+   ldr r2,=WITHIN_LETTER_SPACE
    bx lr
 
 
