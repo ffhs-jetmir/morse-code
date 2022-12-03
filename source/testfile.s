@@ -1,11 +1,9 @@
 @ https://community.arm.com/arm-community-blogs/b/architectures-and-processors-blog/posts/how-to-call-a-function-from-arm-assembler
 
 @ TODO implement starting signal and end of signal
-/*
 .include "base.inc"
 .include "morse.inc"
-.include "timer.inc"
- */
+.include "timer.inc" 
 
 .section .data
 @ TODO remove .equ, just here for test purposes
@@ -82,16 +80,30 @@ checkMorse:
     b loopIncrement         @ if we do not have a morse signal (neither number, letter or space), skip symbol
 
 morseSpace:
-    mov r2, #32
+    bl morse_DOT
+    bl morse_DASH
+    bl morse_DOT
+    bl morse_DASH
+    bl morse_DOT
     b loopIncrement
 
 morseStartSignal:
-    mov r2, #1
-    bx lr
+    mov r6,lr //Saves lr to r6
+    bl morse_DASH
+    bl morse_DOT
+    bl morse_DASH
+    bl morse_DOT
+    bl morse_DASH
+    bx r6
 
 morseEndSignal:
-    mov r2, #2
-    bx lr
+    mov r6,lr //Saves lr to r6
+    bl morse_DOT
+    bl morse_DASH
+    bl morse_DOT
+    bl morse_DASH
+    bl morse_DOT
+    bx r6
 
 endOfString:
     bl morseEndSignal       @ start again with morse signal
@@ -228,7 +240,7 @@ morse_X_to_Z:
 @ ----------------------------------
 
 
-@ individual cases, still formulated as test @ TODO replace with actual morse
+@ individual cases
 
 @ numbers ------------------------- 
 morse_0:
@@ -331,56 +343,84 @@ morse_M:
     b loopIncrement
 
 morse_N:
-    mov r2, #78
+    bl morse_DASH
+    bl more_DOT
     b loopIncrement
 
 morse_O:
-    mov r2, #79
+    bl morse_DASH
+    bl morse_DASH
+    bl morse_DASH
     b loopIncrement
 
 morse_P:
-    mov r2, #80
+    bl morse_DOT
+    bl morse_DASH
+    bl morse_DASH
+    bl morse_DOT
     b loopIncrement
 
 morse_Q:
-    mov r2, #81
+    bl morse_DASH
+    bl morse_DASH
+    bl morse_DOT
+    bl morse_DASH
     b loopIncrement
 
 morse_R:
-    mov r2, #82
+    bl morse_DOT
+    bl morse_DASH
+    bl morse_DOT
     b loopIncrement
 
 morse_S:
-    @ TODO code for morsing S
-    mov r2, #83  @ TODO remove, just here for testpurposes to see if branching works
+    bl morse_DOT
+    bl morse_DOT
+    bl morse_DOT
     b loopIncrement
 
 morse_T:
-    mov r2, #84
+    bl morse_DASH
     b loopIncrement
 
 morse_U:
-    mov r2, #85
+    bl morse_DOT
+    bl morse_DOT
+    bl morse_DASH
     b loopIncrement
 
 morse_V:
-    mov r2, #86
+    bl morse_DOT
+    bl morse_DOT
+    bl morse_DOT
+    bl morse_DASH
     b loopIncrement
 
 morse_W:
-    mov r2, #87
+    bl morse_DOT
+    bl morse_DASH
+    bl morse_DASH
     b loopIncrement
 
 morse_X:
-    mov r2, #88
+    bl morse_DASH
+    bl morse_DOT
+    bl morse_DOT
+    bl morse_DASH
     b loopIncrement
 
 morse_Y:
-    mov r2, #89
+    bl morse_DASH
+    bl morse_DOT
+    bl morse_DASH
+    bl morse_DASH
     b loopIncrement
 
 morse_Z:
-    mov r2, #91
+    bl morse_DASH
+    bl morse_DASH
+    bl morse_DOT
+    bl morse_DOT
     b loopIncrement
 
 @ ----------------------------------
