@@ -289,58 +289,83 @@ morse_9:
 @ Letters --------------------------
 
 morse_A:
-    mov r2, #65
-    bl executeMorse_S
-
+    bl morse_DOT
+    bl morse_DASH
     b loopIncrement
 
 morse_B:
-    mov r2, #66
-    b loopIncrement
+   bl morse_DASH
+   bl morse_DOT
+   bl morse_DOT
+   bl morse_DOT
+   b loopIncrement
 
 morse_C:
-    mov r2, #67
-    b loopIncrement
+   bl morse_DASH
+   bl morse_DOT
+   bl morse_DASH
+   bl morse_DOT
+   b loopIncrement
 
 morse_D:
-    mov r2, #68
-    b loopIncrement
+   bl morse_DASH
+   bl morse_DOT
+   bl morse_DOT
+   b loopIncrement
 
 morse_E:
-    mov r2, #69
-    b loopIncrement
+   bl morse_DOT
+   b loopIncrement
 
 morse_F:
-    mov r2, #70
-    b loopIncrement
+   bl morse_DOT
+   bl morse_DOT
+   bl morse_DASH
+   bl morse_DOT
+   b loopIncrement
 
 morse_G:
-    mov r2, #71
-    b loopIncrement
+   bl morse_DASH
+   bl morse_DASH
+   bl morse_DOT
+   b loopIncrement
 
 morse_H:
-    mov r2, #72
-    b loopIncrement
+   bl morse_DOT
+   bl morse_DOT
+   bl morse_DOT
+   bl morse_DOT
+   b loopIncrement
 
 morse_I:
-    mov r2, #73
-    b loopIncrement
+   bl morse_DOT
+   bl morse_DOT
+   b loopIncrement
 
 morse_J:
-    mov r2, #74
-    b loopIncrement
+   bl morse_DOT
+   bl morse_DASH
+   bl morse_DASH
+   bl morse_DASH    
+   b loopIncrement
 
 morse_K:
-    mov r2, #75
-    b loopIncrement
+   bl morse_DASH
+   bl morse_DOT
+   bl morse_DASH
+   b loopIncrement
 
 morse_L:
-    mov r2, #76
-    b loopIncrement
+   bl morse_DOT
+   bl morse_DASH
+   bl morse_DOT
+   bl morse_DOT
+   b loopIncrement
 
 morse_M:
-    mov r2, #77
-    b loopIncrement
+   bl morse_DASH
+   bl morse_DASH
+   b loopIncrement
 
 morse_N:
     bl morse_DASH
