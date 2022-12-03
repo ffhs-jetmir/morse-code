@@ -1,9 +1,9 @@
 @ https://community.arm.com/arm-community-blogs/b/architectures-and-processors-blog/posts/how-to-call-a-function-from-arm-assembler
 
-@ TODO implement starting signal and end of signal
+/*
 .include "base.inc"
-.include "morse.inc"
 .include "timer.inc" 
+*/
 
 .section .data
 @ TODO remove .equ, just here for test purposes
@@ -16,7 +16,7 @@
 @ ---------------------
 
 @ length of morse "ingredients", should be moved to separate file
-.equ DOT, #0x2F0000
+.equ DOT, 0x2F0000
 .equ DASH, 2 * DOT
 .equ WITHIN_LETTER_SPACE, DOT
 //Because we turn the pin off again, we need to do a minus 1 on BETWEEN_LETTERS and BETWEEN_WORDS
@@ -78,6 +78,46 @@ checkMorse:
     cmp r0, #65             @ A
     bge morseLetter
     b loopIncrement         @ if we do not have a morse signal (neither number, letter or space), skip symbol
+
+
+@ ----- Morse instructions; TODO: extract to separate file --------------------
+initialise_DOT:
+   mov r2,#3
+   bx lr
+   
+initialise_DASH:
+   mov r2,#6
+   bx lr
+   
+initialise_OFF:
+   mov r2,#1                    @ This is usually like dot
+   bx lr
+   
+execute_WAIT:
+   sub r2,#3
+   cmp r2,#0   
+   bne execute_WAIT
+   bx lr
+  
+morse_DOT:
+   mov r5,lr
+   bl initialise_DOT
+   bl execute_WAIT
+   @ Because we turn the pin off again, we need to do a minus 1 on BETWEEN_LETTERS and BETWEEN_WORDS
+   bl initialise_OFF
+   bl execute_WAIT
+   bx r5
+   
+morse_DASH:
+   mov r5,lr                    @ Saves lr to r5
+   bl initialise_DASH           @ lr gets overwritten
+   bl execute_WAIT
+   bl initialise_OFF
+   bl execute_WAIT
+   bx r5                        @ Jumps Back to main
+
+@ ---------------------------------------
+
 
 morseSpace:
     bl morse_DOT
@@ -407,7 +447,7 @@ morse_M:
 
 morse_N:
     bl morse_DASH
-    bl more_DOT
+    bl morse_DOT
     b loopIncrement
 
 morse_O:
