@@ -13,8 +13,6 @@
    the milliseconds are specified in r0
 */
 
-time_wait:
-    mov r0,#1000
 
 wait:
    push {lr}   

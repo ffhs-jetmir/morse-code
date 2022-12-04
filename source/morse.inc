@@ -30,10 +30,9 @@ initialise_OFF_BETWEEN_WORDS:
    bx lr
 
 execute_WAIT:
-   sub r2,#1
-   cmp r2,#0   
-   bne execute_WAIT
-   bx lr
+    ldr r0,=DOT
+    bl wait
+    bx lr
   
 morse_DOT:
    mov r5,lr
@@ -273,6 +272,7 @@ morse_R:
     b loopIncrement
 
 morse_S:
+    
     bl morse_DOT
     bl morse_DOT
     bl morse_DOT

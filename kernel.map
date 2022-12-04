@@ -19,13 +19,13 @@ LOAD build/main.o
  .init          0x00008000        0x4 build/main.o
                 0x00008000                _start
 
-.text           0x00008004      0x534
+.text           0x00008004      0x58c
  *(.text)
- .text          0x00008004      0x534 build/main.o
+ .text          0x00008004      0x58c build/main.o
 
-.data           0x00008538        0x7
+.data           0x00008590        0x7
  *(.data)
- .data          0x00008538        0x7 build/main.o
+ .data          0x00008590        0x7 build/main.o
 
 /DISCARD/
  *(*)

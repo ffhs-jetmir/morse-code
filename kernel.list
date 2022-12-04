@@ -5,487 +5,519 @@ build/output.elf:     file format elf32-littlearm
 Disassembly of section .init:
 
 00008000 <_start>:
-    8000:	ea0000d7 	b	8364 <main>
+    8000:	ea0000e9 	b	83ac <main>
 
 Disassembly of section .text:
 
 00008004 <initialise_DOT>:
     8004:	e3a0282f 	mov	r2, #3080192	; 0x2f0000
-    8008:	e59f0518 	ldr	r0, [pc, #1304]	; 8528 <morse_X_to_Z+0x10>
+    8008:	e59f0568 	ldr	r0, [pc, #1384]	; 8578 <morse_X_to_Z+0x10>
     800c:	e5801000 	str	r1, [r0]
     8010:	e12fff1e 	bx	lr
 
 00008014 <initialise_DASH>:
-    8014:	e3a0285e 	mov	r2, #6160384	; 0x5e0000
-    8018:	e59f0508 	ldr	r0, [pc, #1288]	; 8528 <morse_X_to_Z+0x10>
+    8014:	e3a0288d 	mov	r2, #9240576	; 0x8d0000
+    8018:	e59f0558 	ldr	r0, [pc, #1368]	; 8578 <morse_X_to_Z+0x10>
     801c:	e5801000 	str	r1, [r0]
     8020:	e12fff1e 	bx	lr
 
 00008024 <initialise_OFF>:
     8024:	e3a0282f 	mov	r2, #3080192	; 0x2f0000
-    8028:	e59f04fc 	ldr	r0, [pc, #1276]	; 852c <morse_X_to_Z+0x14>
+    8028:	e59f054c 	ldr	r0, [pc, #1356]	; 857c <morse_X_to_Z+0x14>
     802c:	e5801000 	str	r1, [r0]
     8030:	e12fff1e 	bx	lr
 
-00008034 <execute_WAIT>:
-    8034:	e2422001 	sub	r2, r2, #1
-    8038:	e3520000 	cmp	r2, #0
-    803c:	1afffffc 	bne	8034 <execute_WAIT>
+00008034 <initialise_OFF_BETWEEN_LETTERS>:
+    8034:	e3a0285e 	mov	r2, #6160384	; 0x5e0000
+    8038:	e59f053c 	ldr	r0, [pc, #1340]	; 857c <morse_X_to_Z+0x14>
+    803c:	e5801000 	str	r1, [r0]
     8040:	e12fff1e 	bx	lr
 
-00008044 <morse_DOT>:
-    8044:	e1a0500e 	mov	r5, lr
-    8048:	ebffffed 	bl	8004 <initialise_DOT>
-    804c:	ebfffff8 	bl	8034 <execute_WAIT>
-    8050:	ebfffff3 	bl	8024 <initialise_OFF>
-    8054:	ebfffff6 	bl	8034 <execute_WAIT>
-    8058:	e12fff15 	bx	r5
+00008044 <initialise_OFF_BETWEEN_WORDS>:
+    8044:	e59f2534 	ldr	r2, [pc, #1332]	; 8580 <morse_X_to_Z+0x18>
+    8048:	e59f052c 	ldr	r0, [pc, #1324]	; 857c <morse_X_to_Z+0x14>
+    804c:	e5801000 	str	r1, [r0]
+    8050:	e12fff1e 	bx	lr
 
-0000805c <morse_DASH>:
-    805c:	e1a0500e 	mov	r5, lr
-    8060:	ebffffeb 	bl	8014 <initialise_DASH>
-    8064:	ebfffff2 	bl	8034 <execute_WAIT>
-    8068:	ebffffed 	bl	8024 <initialise_OFF>
-    806c:	ebfffff0 	bl	8034 <execute_WAIT>
-    8070:	e12fff15 	bx	r5
+00008054 <execute_WAIT>:
+    8054:	e3a0082f 	mov	r0, #3080192	; 0x2f0000
+    8058:	eb0000c6 	bl	8378 <wait>
+    805c:	e12fff1e 	bx	lr
 
-00008074 <morseStartSignal>:
-    8074:	e1a0600e 	mov	r6, lr
-    8078:	ebfffff7 	bl	805c <morse_DASH>
-    807c:	ebfffff0 	bl	8044 <morse_DOT>
-    8080:	ebfffff5 	bl	805c <morse_DASH>
-    8084:	ebffffee 	bl	8044 <morse_DOT>
-    8088:	ebfffff3 	bl	805c <morse_DASH>
-    808c:	e12fff16 	bx	r6
+00008060 <morse_DOT>:
+    8060:	e1a0500e 	mov	r5, lr
+    8064:	ebffffe6 	bl	8004 <initialise_DOT>
+    8068:	ebfffff9 	bl	8054 <execute_WAIT>
+    806c:	ebffffec 	bl	8024 <initialise_OFF>
+    8070:	ebfffff7 	bl	8054 <execute_WAIT>
+    8074:	e12fff15 	bx	r5
 
-00008090 <morseEndSignal>:
+00008078 <morse_DASH>:
+    8078:	e1a0500e 	mov	r5, lr
+    807c:	ebffffe4 	bl	8014 <initialise_DASH>
+    8080:	ebfffff3 	bl	8054 <execute_WAIT>
+    8084:	ebffffe6 	bl	8024 <initialise_OFF>
+    8088:	ebfffff1 	bl	8054 <execute_WAIT>
+    808c:	e12fff15 	bx	r5
+
+00008090 <morseStartSignal>:
     8090:	e1a0600e 	mov	r6, lr
-    8094:	ebffffea 	bl	8044 <morse_DOT>
-    8098:	ebffffef 	bl	805c <morse_DASH>
-    809c:	ebffffe8 	bl	8044 <morse_DOT>
-    80a0:	ebffffed 	bl	805c <morse_DASH>
-    80a4:	ebffffe6 	bl	8044 <morse_DOT>
+    8094:	ebfffff7 	bl	8078 <morse_DASH>
+    8098:	ebfffff0 	bl	8060 <morse_DOT>
+    809c:	ebfffff5 	bl	8078 <morse_DASH>
+    80a0:	ebffffee 	bl	8060 <morse_DOT>
+    80a4:	ebfffff3 	bl	8078 <morse_DASH>
     80a8:	e12fff16 	bx	r6
 
-000080ac <morseSpace>:
-    80ac:	ebffffe4 	bl	8044 <morse_DOT>
-    80b0:	ebffffe9 	bl	805c <morse_DASH>
-    80b4:	ebffffe2 	bl	8044 <morse_DOT>
-    80b8:	ebffffe7 	bl	805c <morse_DASH>
-    80bc:	ebffffe0 	bl	8044 <morse_DOT>
-    80c0:	ea0000bd 	b	83bc <loopIncrement>
-
-000080c4 <morse_0>:
-    80c4:	ebffffe4 	bl	805c <morse_DASH>
-    80c8:	ebffffe3 	bl	805c <morse_DASH>
-    80cc:	ebffffe2 	bl	805c <morse_DASH>
-    80d0:	ebffffe1 	bl	805c <morse_DASH>
-    80d4:	ebffffe0 	bl	805c <morse_DASH>
-    80d8:	ea0000b7 	b	83bc <loopIncrement>
-
-000080dc <morse_1>:
-    80dc:	ebffffd8 	bl	8044 <morse_DOT>
-    80e0:	ebffffdd 	bl	805c <morse_DASH>
-    80e4:	ebffffdc 	bl	805c <morse_DASH>
-    80e8:	ebffffdb 	bl	805c <morse_DASH>
-    80ec:	ebffffda 	bl	805c <morse_DASH>
-    80f0:	ea0000b1 	b	83bc <loopIncrement>
-
-000080f4 <morse_2>:
-    80f4:	ebffffd2 	bl	8044 <morse_DOT>
-    80f8:	ebffffd1 	bl	8044 <morse_DOT>
-    80fc:	ebffffd6 	bl	805c <morse_DASH>
-    8100:	ebffffd5 	bl	805c <morse_DASH>
-    8104:	ebffffd4 	bl	805c <morse_DASH>
-    8108:	ea0000ab 	b	83bc <loopIncrement>
-
-0000810c <morse_3>:
-    810c:	ebffffcc 	bl	8044 <morse_DOT>
-    8110:	ebffffcb 	bl	8044 <morse_DOT>
-    8114:	ebffffca 	bl	8044 <morse_DOT>
-    8118:	ebffffcf 	bl	805c <morse_DASH>
-    811c:	ebffffce 	bl	805c <morse_DASH>
-    8120:	ea0000a5 	b	83bc <loopIncrement>
-
-00008124 <morse_4>:
-    8124:	ebffffc6 	bl	8044 <morse_DOT>
-    8128:	ebffffc5 	bl	8044 <morse_DOT>
-    812c:	ebffffc4 	bl	8044 <morse_DOT>
-    8130:	ebffffc3 	bl	8044 <morse_DOT>
-    8134:	ebffffc8 	bl	805c <morse_DASH>
-    8138:	ea00009f 	b	83bc <loopIncrement>
-
-0000813c <morse_5>:
-    813c:	ebffffc0 	bl	8044 <morse_DOT>
-    8140:	ebffffbf 	bl	8044 <morse_DOT>
-    8144:	ebffffbe 	bl	8044 <morse_DOT>
-    8148:	ebffffbd 	bl	8044 <morse_DOT>
-    814c:	ebffffbc 	bl	8044 <morse_DOT>
-    8150:	ea000099 	b	83bc <loopIncrement>
-
-00008154 <morse_6>:
-    8154:	ebffffc0 	bl	805c <morse_DASH>
-    8158:	ebffffb9 	bl	8044 <morse_DOT>
-    815c:	ebffffb8 	bl	8044 <morse_DOT>
-    8160:	ebffffb7 	bl	8044 <morse_DOT>
-    8164:	ebffffb6 	bl	8044 <morse_DOT>
-    8168:	ea000093 	b	83bc <loopIncrement>
-
-0000816c <morse_7>:
-    816c:	ebffffba 	bl	805c <morse_DASH>
-    8170:	ebffffb9 	bl	805c <morse_DASH>
-    8174:	ebffffb2 	bl	8044 <morse_DOT>
-    8178:	ebffffb1 	bl	8044 <morse_DOT>
-    817c:	ebffffb0 	bl	8044 <morse_DOT>
-    8180:	ea00008d 	b	83bc <loopIncrement>
-
-00008184 <morse_8>:
-    8184:	ebffffb4 	bl	805c <morse_DASH>
-    8188:	ebffffb3 	bl	805c <morse_DASH>
-    818c:	ebffffb2 	bl	805c <morse_DASH>
-    8190:	ebffffab 	bl	8044 <morse_DOT>
-    8194:	ebffffaa 	bl	8044 <morse_DOT>
-    8198:	ea000087 	b	83bc <loopIncrement>
-
-0000819c <morse_9>:
-    819c:	ebffffae 	bl	805c <morse_DASH>
-    81a0:	ebffffad 	bl	805c <morse_DASH>
-    81a4:	ebffffac 	bl	805c <morse_DASH>
-    81a8:	ebffffab 	bl	805c <morse_DASH>
-    81ac:	ebffffa4 	bl	8044 <morse_DOT>
-    81b0:	ea000081 	b	83bc <loopIncrement>
-
-000081b4 <morse_A>:
-    81b4:	ebffffa2 	bl	8044 <morse_DOT>
-    81b8:	ebffffa7 	bl	805c <morse_DASH>
-    81bc:	ea00007e 	b	83bc <loopIncrement>
-
-000081c0 <morse_B>:
-    81c0:	ebffffa5 	bl	805c <morse_DASH>
-    81c4:	ebffff9e 	bl	8044 <morse_DOT>
-    81c8:	ebffff9d 	bl	8044 <morse_DOT>
-    81cc:	ebffff9c 	bl	8044 <morse_DOT>
-    81d0:	ea000079 	b	83bc <loopIncrement>
-
-000081d4 <morse_C>:
-    81d4:	ebffffa0 	bl	805c <morse_DASH>
-    81d8:	ebffff99 	bl	8044 <morse_DOT>
-    81dc:	ebffff9e 	bl	805c <morse_DASH>
-    81e0:	ebffff97 	bl	8044 <morse_DOT>
-    81e4:	ea000074 	b	83bc <loopIncrement>
-
-000081e8 <morse_D>:
-    81e8:	ebffff9b 	bl	805c <morse_DASH>
-    81ec:	ebffff94 	bl	8044 <morse_DOT>
-    81f0:	ebffff93 	bl	8044 <morse_DOT>
-    81f4:	ea000070 	b	83bc <loopIncrement>
-
-000081f8 <morse_E>:
-    81f8:	ebffff91 	bl	8044 <morse_DOT>
-    81fc:	ea00006e 	b	83bc <loopIncrement>
-
-00008200 <morse_F>:
-    8200:	ebffff8f 	bl	8044 <morse_DOT>
-    8204:	ebffff8e 	bl	8044 <morse_DOT>
-    8208:	ebffff93 	bl	805c <morse_DASH>
-    820c:	ebffff8c 	bl	8044 <morse_DOT>
-    8210:	ea000069 	b	83bc <loopIncrement>
-
-00008214 <morse_G>:
-    8214:	ebffff90 	bl	805c <morse_DASH>
-    8218:	ebffff8f 	bl	805c <morse_DASH>
-    821c:	ebffff88 	bl	8044 <morse_DOT>
-    8220:	ea000065 	b	83bc <loopIncrement>
-
-00008224 <morse_H>:
-    8224:	ebffff86 	bl	8044 <morse_DOT>
-    8228:	ebffff85 	bl	8044 <morse_DOT>
-    822c:	ebffff84 	bl	8044 <morse_DOT>
-    8230:	ebffff83 	bl	8044 <morse_DOT>
-    8234:	ea000060 	b	83bc <loopIncrement>
-
-00008238 <morse_I>:
-    8238:	ebffff81 	bl	8044 <morse_DOT>
-    823c:	ebffff80 	bl	8044 <morse_DOT>
-    8240:	ea00005d 	b	83bc <loopIncrement>
-
-00008244 <morse_J>:
-    8244:	ebffff7e 	bl	8044 <morse_DOT>
-    8248:	ebffff83 	bl	805c <morse_DASH>
-    824c:	ebffff82 	bl	805c <morse_DASH>
-    8250:	ebffff81 	bl	805c <morse_DASH>
-    8254:	ea000058 	b	83bc <loopIncrement>
-
-00008258 <morse_K>:
-    8258:	ebffff7f 	bl	805c <morse_DASH>
-    825c:	ebffff78 	bl	8044 <morse_DOT>
-    8260:	ebffff7d 	bl	805c <morse_DASH>
-    8264:	ea000054 	b	83bc <loopIncrement>
-
-00008268 <morse_L>:
-    8268:	ebffff75 	bl	8044 <morse_DOT>
-    826c:	ebffff7a 	bl	805c <morse_DASH>
-    8270:	ebffff73 	bl	8044 <morse_DOT>
-    8274:	ebffff72 	bl	8044 <morse_DOT>
-    8278:	ea00004f 	b	83bc <loopIncrement>
-
-0000827c <morse_M>:
-    827c:	ebffff76 	bl	805c <morse_DASH>
-    8280:	ebffff75 	bl	805c <morse_DASH>
-    8284:	ea00004c 	b	83bc <loopIncrement>
-
-00008288 <morse_N>:
-    8288:	ebffff73 	bl	805c <morse_DASH>
-    828c:	ebffff6c 	bl	8044 <morse_DOT>
-    8290:	ea000049 	b	83bc <loopIncrement>
-
-00008294 <morse_O>:
-    8294:	ebffff70 	bl	805c <morse_DASH>
-    8298:	ebffff6f 	bl	805c <morse_DASH>
-    829c:	ebffff6e 	bl	805c <morse_DASH>
-    82a0:	ea000045 	b	83bc <loopIncrement>
-
-000082a4 <morse_P>:
-    82a4:	ebffff66 	bl	8044 <morse_DOT>
-    82a8:	ebffff6b 	bl	805c <morse_DASH>
-    82ac:	ebffff6a 	bl	805c <morse_DASH>
-    82b0:	ebffff63 	bl	8044 <morse_DOT>
-    82b4:	ea000040 	b	83bc <loopIncrement>
-
-000082b8 <morse_Q>:
-    82b8:	ebffff67 	bl	805c <morse_DASH>
-    82bc:	ebffff66 	bl	805c <morse_DASH>
-    82c0:	ebffff5f 	bl	8044 <morse_DOT>
-    82c4:	ebffff64 	bl	805c <morse_DASH>
-    82c8:	ea00003b 	b	83bc <loopIncrement>
-
-000082cc <morse_R>:
-    82cc:	ebffff5c 	bl	8044 <morse_DOT>
-    82d0:	ebffff61 	bl	805c <morse_DASH>
-    82d4:	ebffff5a 	bl	8044 <morse_DOT>
-    82d8:	ea000037 	b	83bc <loopIncrement>
-
-000082dc <morse_S>:
-    82dc:	ebffff58 	bl	8044 <morse_DOT>
-    82e0:	ebffff57 	bl	8044 <morse_DOT>
-    82e4:	ebffff56 	bl	8044 <morse_DOT>
-    82e8:	ea000033 	b	83bc <loopIncrement>
-
-000082ec <morse_T>:
-    82ec:	ebffff5a 	bl	805c <morse_DASH>
-    82f0:	ea000031 	b	83bc <loopIncrement>
-
-000082f4 <morse_U>:
-    82f4:	ebffff52 	bl	8044 <morse_DOT>
-    82f8:	ebffff51 	bl	8044 <morse_DOT>
-    82fc:	ebffff56 	bl	805c <morse_DASH>
-    8300:	ea00002d 	b	83bc <loopIncrement>
-
-00008304 <morse_V>:
-    8304:	ebffff4e 	bl	8044 <morse_DOT>
-    8308:	ebffff4d 	bl	8044 <morse_DOT>
-    830c:	ebffff4c 	bl	8044 <morse_DOT>
-    8310:	ebffff51 	bl	805c <morse_DASH>
-    8314:	ea000028 	b	83bc <loopIncrement>
-
-00008318 <morse_W>:
-    8318:	ebffff49 	bl	8044 <morse_DOT>
-    831c:	ebffff4e 	bl	805c <morse_DASH>
-    8320:	ebffff4d 	bl	805c <morse_DASH>
-    8324:	ea000024 	b	83bc <loopIncrement>
-
-00008328 <morse_X>:
-    8328:	ebffff4b 	bl	805c <morse_DASH>
-    832c:	ebffff44 	bl	8044 <morse_DOT>
-    8330:	ebffff43 	bl	8044 <morse_DOT>
-    8334:	ebffff48 	bl	805c <morse_DASH>
-    8338:	ea00001f 	b	83bc <loopIncrement>
-
-0000833c <morse_Y>:
-    833c:	ebffff46 	bl	805c <morse_DASH>
-    8340:	ebffff3f 	bl	8044 <morse_DOT>
-    8344:	ebffff44 	bl	805c <morse_DASH>
-    8348:	ebffff43 	bl	805c <morse_DASH>
-    834c:	ea00001a 	b	83bc <loopIncrement>
-
-00008350 <morse_Z>:
-    8350:	ebffff41 	bl	805c <morse_DASH>
-    8354:	ebffff40 	bl	805c <morse_DASH>
-    8358:	ebffff39 	bl	8044 <morse_DOT>
-    835c:	ebffff38 	bl	8044 <morse_DOT>
-    8360:	ea000015 	b	83bc <loopIncrement>
-
-00008364 <main>:
-    8364:	e3a01001 	mov	r1, #1
-    8368:	e1a01181 	lsl	r1, r1, #3
-    836c:	e59f01bc 	ldr	r0, [pc, #444]	; 8530 <morse_X_to_Z+0x18>
-    8370:	e5801000 	str	r1, [r0]
-    8374:	e3a01001 	mov	r1, #1
-    8378:	e1a01a81 	lsl	r1, r1, #21
-
-0000837c <MainLoop>:
-    837c:	ebffff28 	bl	8024 <initialise_OFF>
-    8380:	ebffff3b 	bl	8074 <morseStartSignal>
-    8384:	e59fa1a8 	ldr	sl, [pc, #424]	; 8534 <morse_X_to_Z+0x1c>
-    8388:	e3a09000 	mov	r9, #0
-
-0000838c <convertToUpperCase>:
-    838c:	e089800a 	add	r8, r9, sl
-    8390:	e5d80000 	ldrb	r0, [r8]
-    8394:	e3500000 	cmp	r0, #0
-    8398:	0a000010 	beq	83e0 <endOfString>
-    839c:	e3500061 	cmp	r0, #97	; 0x61
-    83a0:	ba000007 	blt	83c4 <checkMorse>
-    83a4:	e350007a 	cmp	r0, #122	; 0x7a
-    83a8:	ca000005 	bgt	83c4 <checkMorse>
-    83ac:	e2400020 	sub	r0, r0, #32
-    83b0:	e5c80000 	strb	r0, [r8]
-    83b4:	ea000002 	b	83c4 <checkMorse>
-    83b8:	eafffff3 	b	838c <convertToUpperCase>
-
-000083bc <loopIncrement>:
-    83bc:	e2899001 	add	r9, r9, #1
-    83c0:	eafffff1 	b	838c <convertToUpperCase>
-
-000083c4 <checkMorse>:
-    83c4:	e3500020 	cmp	r0, #32
-    83c8:	0affff37 	beq	80ac <morseSpace>
-    83cc:	e3500039 	cmp	r0, #57	; 0x39
-    83d0:	da000004 	ble	83e8 <morseNumber>
-    83d4:	e3500041 	cmp	r0, #65	; 0x41
-    83d8:	aa000019 	bge	8444 <morseLetter>
-    83dc:	eafffff6 	b	83bc <loopIncrement>
-
-000083e0 <endOfString>:
-    83e0:	ebffff2a 	bl	8090 <morseEndSignal>
-    83e4:	eaffffe4 	b	837c <MainLoop>
-
-000083e8 <morseNumber>:
-    83e8:	e3500030 	cmp	r0, #48	; 0x30
-    83ec:	bafffff2 	blt	83bc <loopIncrement>
-
-000083f0 <morse_0_to_9>:
-    83f0:	e3500034 	cmp	r0, #52	; 0x34
-    83f4:	0affff4a 	beq	8124 <morse_4>
-    83f8:	ba000000 	blt	8400 <morse_0_to_3>
-    83fc:	ca000006 	bgt	841c <morse_5_to_9>
-
-00008400 <morse_0_to_3>:
-    8400:	e3500031 	cmp	r0, #49	; 0x31
-    8404:	0affff34 	beq	80dc <morse_1>
-    8408:	baffff2d 	blt	80c4 <morse_0>
-    840c:	caffffff 	bgt	8410 <morse_2_to_3>
-
-00008410 <morse_2_to_3>:
-    8410:	e3500032 	cmp	r0, #50	; 0x32
-    8414:	0affff36 	beq	80f4 <morse_2>
-    8418:	caffff3b 	bgt	810c <morse_3>
-
-0000841c <morse_5_to_9>:
-    841c:	e3500037 	cmp	r0, #55	; 0x37
-    8420:	0affff51 	beq	816c <morse_7>
-    8424:	ba000000 	blt	842c <morse_5_to_6>
-    8428:	ca000002 	bgt	8438 <morse_8_to_9>
-
-0000842c <morse_5_to_6>:
-    842c:	e3500035 	cmp	r0, #53	; 0x35
-    8430:	0affff41 	beq	813c <morse_5>
-    8434:	caffff46 	bgt	8154 <morse_6>
-
-00008438 <morse_8_to_9>:
-    8438:	e3500038 	cmp	r0, #56	; 0x38
-    843c:	0affff50 	beq	8184 <morse_8>
-    8440:	caffff55 	bgt	819c <morse_9>
-
-00008444 <morseLetter>:
-    8444:	e350005a 	cmp	r0, #90	; 0x5a
-    8448:	caffffdb 	bgt	83bc <loopIncrement>
-
-0000844c <morse_A_to_Z>:
-    844c:	e350004d 	cmp	r0, #77	; 0x4d
-    8450:	0affff89 	beq	827c <morse_M>
-    8454:	ba000000 	blt	845c <morse_A_to_L>
-    8458:	ca000018 	bgt	84c0 <morse_N_to_Z>
-
-0000845c <morse_A_to_L>:
-    845c:	e3500046 	cmp	r0, #70	; 0x46
-    8460:	0affff66 	beq	8200 <morse_F>
-    8464:	ba000000 	blt	846c <morse_A_to_E>
-    8468:	ca000009 	bgt	8494 <morse_G_to_L>
-
-0000846c <morse_A_to_E>:
-    846c:	e3500043 	cmp	r0, #67	; 0x43
-    8470:	0affff57 	beq	81d4 <morse_C>
-    8474:	ba000000 	blt	847c <morse_A_to_B>
-    8478:	ca000002 	bgt	8488 <morse_D_to_E>
-
-0000847c <morse_A_to_B>:
-    847c:	e3500041 	cmp	r0, #65	; 0x41
-    8480:	0affff4b 	beq	81b4 <morse_A>
-    8484:	caffff4d 	bgt	81c0 <morse_B>
-
-00008488 <morse_D_to_E>:
-    8488:	e3500044 	cmp	r0, #68	; 0x44
-    848c:	0affff55 	beq	81e8 <morse_D>
-    8490:	caffff58 	bgt	81f8 <morse_E>
-
-00008494 <morse_G_to_L>:
-    8494:	e3500049 	cmp	r0, #73	; 0x49
-    8498:	0affff66 	beq	8238 <morse_I>
-    849c:	ba000000 	blt	84a4 <morse_G_to_H>
-    84a0:	ca000002 	bgt	84b0 <morse_J_to_L>
-
-000084a4 <morse_G_to_H>:
-    84a4:	e3500047 	cmp	r0, #71	; 0x47
-    84a8:	0affff59 	beq	8214 <morse_G>
-    84ac:	caffff5c 	bgt	8224 <morse_H>
-
-000084b0 <morse_J_to_L>:
-    84b0:	e350004b 	cmp	r0, #75	; 0x4b
-    84b4:	0affff67 	beq	8258 <morse_K>
-    84b8:	baffff61 	blt	8244 <morse_J>
-    84bc:	caffff69 	bgt	8268 <morse_L>
-
-000084c0 <morse_N_to_Z>:
-    84c0:	e3500054 	cmp	r0, #84	; 0x54
-    84c4:	0affff88 	beq	82ec <morse_T>
-    84c8:	ba000000 	blt	84d0 <morse_N_to_S>
-    84cc:	ca00000a 	bgt	84fc <morse_U_to_Z>
-
-000084d0 <morse_N_to_S>:
-    84d0:	e3500050 	cmp	r0, #80	; 0x50
-    84d4:	0affff72 	beq	82a4 <morse_P>
-    84d8:	ba000000 	blt	84e0 <morse_N_to_O>
-    84dc:	ca000002 	bgt	84ec <morse_Q_to_S>
-
-000084e0 <morse_N_to_O>:
-    84e0:	e350004e 	cmp	r0, #78	; 0x4e
-    84e4:	0affff67 	beq	8288 <morse_N>
-    84e8:	caffff69 	bgt	8294 <morse_O>
-
-000084ec <morse_Q_to_S>:
-    84ec:	e3500052 	cmp	r0, #82	; 0x52
-    84f0:	0affff75 	beq	82cc <morse_R>
-    84f4:	baffff6f 	blt	82b8 <morse_Q>
-    84f8:	caffff77 	bgt	82dc <morse_S>
-
-000084fc <morse_U_to_Z>:
-    84fc:	e3500057 	cmp	r0, #87	; 0x57
-    8500:	0affff84 	beq	8318 <morse_W>
-    8504:	ba000000 	blt	850c <morse_U_to_V>
-    8508:	ca000002 	bgt	8518 <morse_X_to_Z>
-
-0000850c <morse_U_to_V>:
-    850c:	e3500055 	cmp	r0, #85	; 0x55
-    8510:	0affff77 	beq	82f4 <morse_U>
-    8514:	caffff7a 	bgt	8304 <morse_V>
-
-00008518 <morse_X_to_Z>:
-    8518:	e3500059 	cmp	r0, #89	; 0x59
-    851c:	0affff86 	beq	833c <morse_Y>
-    8520:	baffff80 	blt	8328 <morse_X>
-    8524:	caffff89 	bgt	8350 <morse_Z>
-    8528:	2020001c 	.word	0x2020001c
-    852c:	20200028 	.word	0x20200028
-    8530:	20200008 	.word	0x20200008
-    8534:	00008538 	.word	0x00008538
+000080ac <morseEndSignal>:
+    80ac:	e1a0600e 	mov	r6, lr
+    80b0:	ebffffea 	bl	8060 <morse_DOT>
+    80b4:	ebffffef 	bl	8078 <morse_DASH>
+    80b8:	ebffffe8 	bl	8060 <morse_DOT>
+    80bc:	ebffffed 	bl	8078 <morse_DASH>
+    80c0:	ebffffe6 	bl	8060 <morse_DOT>
+    80c4:	e12fff16 	bx	r6
+
+000080c8 <morseSpace>:
+    80c8:	ebffffdd 	bl	8044 <initialise_OFF_BETWEEN_WORDS>
+    80cc:	ebffffe0 	bl	8054 <execute_WAIT>
+    80d0:	ea0000cb 	b	8404 <loopIncrement>
+    80d4:	ea0000ca 	b	8404 <loopIncrement>
+
+000080d8 <morse_0>:
+    80d8:	ebffffe6 	bl	8078 <morse_DASH>
+    80dc:	ebffffe5 	bl	8078 <morse_DASH>
+    80e0:	ebffffe4 	bl	8078 <morse_DASH>
+    80e4:	ebffffe3 	bl	8078 <morse_DASH>
+    80e8:	ebffffe2 	bl	8078 <morse_DASH>
+    80ec:	ea0000c4 	b	8404 <loopIncrement>
+
+000080f0 <morse_1>:
+    80f0:	ebffffda 	bl	8060 <morse_DOT>
+    80f4:	ebffffdf 	bl	8078 <morse_DASH>
+    80f8:	ebffffde 	bl	8078 <morse_DASH>
+    80fc:	ebffffdd 	bl	8078 <morse_DASH>
+    8100:	ebffffdc 	bl	8078 <morse_DASH>
+    8104:	ea0000be 	b	8404 <loopIncrement>
+
+00008108 <morse_2>:
+    8108:	ebffffd4 	bl	8060 <morse_DOT>
+    810c:	ebffffd3 	bl	8060 <morse_DOT>
+    8110:	ebffffd8 	bl	8078 <morse_DASH>
+    8114:	ebffffd7 	bl	8078 <morse_DASH>
+    8118:	ebffffd6 	bl	8078 <morse_DASH>
+    811c:	ea0000b8 	b	8404 <loopIncrement>
+
+00008120 <morse_3>:
+    8120:	ebffffce 	bl	8060 <morse_DOT>
+    8124:	ebffffcd 	bl	8060 <morse_DOT>
+    8128:	ebffffcc 	bl	8060 <morse_DOT>
+    812c:	ebffffd1 	bl	8078 <morse_DASH>
+    8130:	ebffffd0 	bl	8078 <morse_DASH>
+    8134:	ea0000b2 	b	8404 <loopIncrement>
+
+00008138 <morse_4>:
+    8138:	ebffffc8 	bl	8060 <morse_DOT>
+    813c:	ebffffc7 	bl	8060 <morse_DOT>
+    8140:	ebffffc6 	bl	8060 <morse_DOT>
+    8144:	ebffffc5 	bl	8060 <morse_DOT>
+    8148:	ebffffca 	bl	8078 <morse_DASH>
+    814c:	ea0000ac 	b	8404 <loopIncrement>
+
+00008150 <morse_5>:
+    8150:	ebffffc2 	bl	8060 <morse_DOT>
+    8154:	ebffffc1 	bl	8060 <morse_DOT>
+    8158:	ebffffc0 	bl	8060 <morse_DOT>
+    815c:	ebffffbf 	bl	8060 <morse_DOT>
+    8160:	ebffffbe 	bl	8060 <morse_DOT>
+    8164:	ea0000a6 	b	8404 <loopIncrement>
+
+00008168 <morse_6>:
+    8168:	ebffffc2 	bl	8078 <morse_DASH>
+    816c:	ebffffbb 	bl	8060 <morse_DOT>
+    8170:	ebffffba 	bl	8060 <morse_DOT>
+    8174:	ebffffb9 	bl	8060 <morse_DOT>
+    8178:	ebffffb8 	bl	8060 <morse_DOT>
+    817c:	ea0000a0 	b	8404 <loopIncrement>
+
+00008180 <morse_7>:
+    8180:	ebffffbc 	bl	8078 <morse_DASH>
+    8184:	ebffffbb 	bl	8078 <morse_DASH>
+    8188:	ebffffb4 	bl	8060 <morse_DOT>
+    818c:	ebffffb3 	bl	8060 <morse_DOT>
+    8190:	ebffffb2 	bl	8060 <morse_DOT>
+    8194:	ea00009a 	b	8404 <loopIncrement>
+
+00008198 <morse_8>:
+    8198:	ebffffb6 	bl	8078 <morse_DASH>
+    819c:	ebffffb5 	bl	8078 <morse_DASH>
+    81a0:	ebffffb4 	bl	8078 <morse_DASH>
+    81a4:	ebffffad 	bl	8060 <morse_DOT>
+    81a8:	ebffffac 	bl	8060 <morse_DOT>
+    81ac:	ea000094 	b	8404 <loopIncrement>
+
+000081b0 <morse_9>:
+    81b0:	ebffffb0 	bl	8078 <morse_DASH>
+    81b4:	ebffffaf 	bl	8078 <morse_DASH>
+    81b8:	ebffffae 	bl	8078 <morse_DASH>
+    81bc:	ebffffad 	bl	8078 <morse_DASH>
+    81c0:	ebffffa6 	bl	8060 <morse_DOT>
+    81c4:	ea00008e 	b	8404 <loopIncrement>
+
+000081c8 <morse_A>:
+    81c8:	ebffffa4 	bl	8060 <morse_DOT>
+    81cc:	ebffffa9 	bl	8078 <morse_DASH>
+    81d0:	ea00008b 	b	8404 <loopIncrement>
+
+000081d4 <morse_B>:
+    81d4:	ebffffa7 	bl	8078 <morse_DASH>
+    81d8:	ebffffa0 	bl	8060 <morse_DOT>
+    81dc:	ebffff9f 	bl	8060 <morse_DOT>
+    81e0:	ebffff9e 	bl	8060 <morse_DOT>
+    81e4:	ea000086 	b	8404 <loopIncrement>
+
+000081e8 <morse_C>:
+    81e8:	ebffffa2 	bl	8078 <morse_DASH>
+    81ec:	ebffff9b 	bl	8060 <morse_DOT>
+    81f0:	ebffffa0 	bl	8078 <morse_DASH>
+    81f4:	ebffff99 	bl	8060 <morse_DOT>
+    81f8:	ea000081 	b	8404 <loopIncrement>
+
+000081fc <morse_D>:
+    81fc:	ebffff9d 	bl	8078 <morse_DASH>
+    8200:	ebffff96 	bl	8060 <morse_DOT>
+    8204:	ebffff95 	bl	8060 <morse_DOT>
+    8208:	ea00007d 	b	8404 <loopIncrement>
+
+0000820c <morse_E>:
+    820c:	ebffff93 	bl	8060 <morse_DOT>
+    8210:	ea00007b 	b	8404 <loopIncrement>
+
+00008214 <morse_F>:
+    8214:	ebffff91 	bl	8060 <morse_DOT>
+    8218:	ebffff90 	bl	8060 <morse_DOT>
+    821c:	ebffff95 	bl	8078 <morse_DASH>
+    8220:	ebffff8e 	bl	8060 <morse_DOT>
+    8224:	ea000076 	b	8404 <loopIncrement>
+
+00008228 <morse_G>:
+    8228:	ebffff92 	bl	8078 <morse_DASH>
+    822c:	ebffff91 	bl	8078 <morse_DASH>
+    8230:	ebffff8a 	bl	8060 <morse_DOT>
+    8234:	ea000072 	b	8404 <loopIncrement>
+
+00008238 <morse_H>:
+    8238:	ebffff88 	bl	8060 <morse_DOT>
+    823c:	ebffff87 	bl	8060 <morse_DOT>
+    8240:	ebffff86 	bl	8060 <morse_DOT>
+    8244:	ebffff85 	bl	8060 <morse_DOT>
+    8248:	ea00006d 	b	8404 <loopIncrement>
+
+0000824c <morse_I>:
+    824c:	ebffff83 	bl	8060 <morse_DOT>
+    8250:	ebffff82 	bl	8060 <morse_DOT>
+    8254:	ea00006a 	b	8404 <loopIncrement>
+
+00008258 <morse_J>:
+    8258:	ebffff80 	bl	8060 <morse_DOT>
+    825c:	ebffff85 	bl	8078 <morse_DASH>
+    8260:	ebffff84 	bl	8078 <morse_DASH>
+    8264:	ebffff83 	bl	8078 <morse_DASH>
+    8268:	ea000065 	b	8404 <loopIncrement>
+
+0000826c <morse_K>:
+    826c:	ebffff81 	bl	8078 <morse_DASH>
+    8270:	ebffff7a 	bl	8060 <morse_DOT>
+    8274:	ebffff7f 	bl	8078 <morse_DASH>
+    8278:	ea000061 	b	8404 <loopIncrement>
+
+0000827c <morse_L>:
+    827c:	ebffff77 	bl	8060 <morse_DOT>
+    8280:	ebffff7c 	bl	8078 <morse_DASH>
+    8284:	ebffff75 	bl	8060 <morse_DOT>
+    8288:	ebffff74 	bl	8060 <morse_DOT>
+    828c:	ea00005c 	b	8404 <loopIncrement>
+
+00008290 <morse_M>:
+    8290:	ebffff78 	bl	8078 <morse_DASH>
+    8294:	ebffff77 	bl	8078 <morse_DASH>
+    8298:	ea000059 	b	8404 <loopIncrement>
+
+0000829c <morse_N>:
+    829c:	ebffff75 	bl	8078 <morse_DASH>
+    82a0:	ebffff6e 	bl	8060 <morse_DOT>
+    82a4:	ea000056 	b	8404 <loopIncrement>
+
+000082a8 <morse_O>:
+    82a8:	ebffff72 	bl	8078 <morse_DASH>
+    82ac:	ebffff71 	bl	8078 <morse_DASH>
+    82b0:	ebffff70 	bl	8078 <morse_DASH>
+    82b4:	ea000052 	b	8404 <loopIncrement>
+
+000082b8 <morse_P>:
+    82b8:	ebffff68 	bl	8060 <morse_DOT>
+    82bc:	ebffff6d 	bl	8078 <morse_DASH>
+    82c0:	ebffff6c 	bl	8078 <morse_DASH>
+    82c4:	ebffff65 	bl	8060 <morse_DOT>
+    82c8:	ea00004d 	b	8404 <loopIncrement>
+
+000082cc <morse_Q>:
+    82cc:	ebffff69 	bl	8078 <morse_DASH>
+    82d0:	ebffff68 	bl	8078 <morse_DASH>
+    82d4:	ebffff61 	bl	8060 <morse_DOT>
+    82d8:	ebffff66 	bl	8078 <morse_DASH>
+    82dc:	ea000048 	b	8404 <loopIncrement>
+
+000082e0 <morse_R>:
+    82e0:	ebffff5e 	bl	8060 <morse_DOT>
+    82e4:	ebffff63 	bl	8078 <morse_DASH>
+    82e8:	ebffff5c 	bl	8060 <morse_DOT>
+    82ec:	ea000044 	b	8404 <loopIncrement>
+
+000082f0 <morse_S>:
+    82f0:	ebffff5a 	bl	8060 <morse_DOT>
+    82f4:	ebffff59 	bl	8060 <morse_DOT>
+    82f8:	ebffff58 	bl	8060 <morse_DOT>
+    82fc:	ea000040 	b	8404 <loopIncrement>
+
+00008300 <morse_T>:
+    8300:	ebffff5c 	bl	8078 <morse_DASH>
+    8304:	ea00003e 	b	8404 <loopIncrement>
+
+00008308 <morse_U>:
+    8308:	ebffff54 	bl	8060 <morse_DOT>
+    830c:	ebffff53 	bl	8060 <morse_DOT>
+    8310:	ebffff58 	bl	8078 <morse_DASH>
+    8314:	ea00003a 	b	8404 <loopIncrement>
+
+00008318 <morse_V>:
+    8318:	ebffff50 	bl	8060 <morse_DOT>
+    831c:	ebffff4f 	bl	8060 <morse_DOT>
+    8320:	ebffff4e 	bl	8060 <morse_DOT>
+    8324:	ebffff53 	bl	8078 <morse_DASH>
+    8328:	ea000035 	b	8404 <loopIncrement>
+
+0000832c <morse_W>:
+    832c:	ebffff4b 	bl	8060 <morse_DOT>
+    8330:	ebffff50 	bl	8078 <morse_DASH>
+    8334:	ebffff4f 	bl	8078 <morse_DASH>
+    8338:	ea000031 	b	8404 <loopIncrement>
+
+0000833c <morse_X>:
+    833c:	ebffff4d 	bl	8078 <morse_DASH>
+    8340:	ebffff46 	bl	8060 <morse_DOT>
+    8344:	ebffff45 	bl	8060 <morse_DOT>
+    8348:	ebffff4a 	bl	8078 <morse_DASH>
+    834c:	ea00002c 	b	8404 <loopIncrement>
+
+00008350 <morse_Y>:
+    8350:	ebffff48 	bl	8078 <morse_DASH>
+    8354:	ebffff41 	bl	8060 <morse_DOT>
+    8358:	ebffff46 	bl	8078 <morse_DASH>
+    835c:	ebffff45 	bl	8078 <morse_DASH>
+    8360:	ea000027 	b	8404 <loopIncrement>
+
+00008364 <morse_Z>:
+    8364:	ebffff43 	bl	8078 <morse_DASH>
+    8368:	ebffff42 	bl	8078 <morse_DASH>
+    836c:	ebffff3b 	bl	8060 <morse_DOT>
+    8370:	ebffff3a 	bl	8060 <morse_DOT>
+    8374:	ea000022 	b	8404 <loopIncrement>
+
+00008378 <wait>:
+    8378:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+    837c:	e1a02000 	mov	r2, r0
+    8380:	eb000005 	bl	839c <GetTimeStamp>
+    8384:	e1a03000 	mov	r3, r0
+
+00008388 <wait_loop$>:
+    8388:	eb000003 	bl	839c <GetTimeStamp>
+    838c:	e0401003 	sub	r1, r0, r3
+    8390:	e1510002 	cmp	r1, r2
+    8394:	9afffffb 	bls	8388 <wait_loop$>
+    8398:	e49df004 	pop	{pc}		; (ldr pc, [sp], #4)
+
+0000839c <GetTimeStamp>:
+    839c:	e52de004 	push	{lr}		; (str lr, [sp, #-4]!)
+    83a0:	e59f01dc 	ldr	r0, [pc, #476]	; 8584 <morse_X_to_Z+0x1c>
+    83a4:	e5900000 	ldr	r0, [r0]
+    83a8:	e49df004 	pop	{pc}		; (ldr pc, [sp], #4)
+
+000083ac <main>:
+    83ac:	e3a01001 	mov	r1, #1
+    83b0:	e1a01181 	lsl	r1, r1, #3
+    83b4:	e59f01cc 	ldr	r0, [pc, #460]	; 8588 <morse_X_to_Z+0x20>
+    83b8:	e5801000 	str	r1, [r0]
+    83bc:	e3a01001 	mov	r1, #1
+    83c0:	e1a01a81 	lsl	r1, r1, #21
+
+000083c4 <MainLoop>:
+    83c4:	ebffff16 	bl	8024 <initialise_OFF>
+    83c8:	ebffff30 	bl	8090 <morseStartSignal>
+    83cc:	e59fa1b8 	ldr	sl, [pc, #440]	; 858c <morse_X_to_Z+0x24>
+    83d0:	e3a09000 	mov	r9, #0
+
+000083d4 <convertToUpperCase>:
+    83d4:	e089800a 	add	r8, r9, sl
+    83d8:	e5d80000 	ldrb	r0, [r8]
+    83dc:	e3500000 	cmp	r0, #0
+    83e0:	0a000012 	beq	8430 <endOfString>
+    83e4:	e3500061 	cmp	r0, #97	; 0x61
+    83e8:	ba000009 	blt	8414 <checkMorse>
+    83ec:	e350007a 	cmp	r0, #122	; 0x7a
+    83f0:	ca000007 	bgt	8414 <checkMorse>
+    83f4:	e2400020 	sub	r0, r0, #32
+    83f8:	e5c80000 	strb	r0, [r8]
+    83fc:	ea000004 	b	8414 <checkMorse>
+    8400:	eafffff3 	b	83d4 <convertToUpperCase>
+
+00008404 <loopIncrement>:
+    8404:	e2899001 	add	r9, r9, #1
+    8408:	ebffff09 	bl	8034 <initialise_OFF_BETWEEN_LETTERS>
+    840c:	ebffff10 	bl	8054 <execute_WAIT>
+    8410:	eaffffef 	b	83d4 <convertToUpperCase>
+
+00008414 <checkMorse>:
+    8414:	e3500020 	cmp	r0, #32
+    8418:	0affff2a 	beq	80c8 <morseSpace>
+    841c:	e3500039 	cmp	r0, #57	; 0x39
+    8420:	da000004 	ble	8438 <morseNumber>
+    8424:	e3500041 	cmp	r0, #65	; 0x41
+    8428:	aa000019 	bge	8494 <morseLetter>
+    842c:	eafffff4 	b	8404 <loopIncrement>
+
+00008430 <endOfString>:
+    8430:	ebffff1d 	bl	80ac <morseEndSignal>
+    8434:	eaffffe2 	b	83c4 <MainLoop>
+
+00008438 <morseNumber>:
+    8438:	e3500030 	cmp	r0, #48	; 0x30
+    843c:	bafffff0 	blt	8404 <loopIncrement>
+
+00008440 <morse_0_to_9>:
+    8440:	e3500034 	cmp	r0, #52	; 0x34
+    8444:	0affff3b 	beq	8138 <morse_4>
+    8448:	ba000000 	blt	8450 <morse_0_to_3>
+    844c:	ca000006 	bgt	846c <morse_5_to_9>
+
+00008450 <morse_0_to_3>:
+    8450:	e3500031 	cmp	r0, #49	; 0x31
+    8454:	0affff25 	beq	80f0 <morse_1>
+    8458:	baffff1e 	blt	80d8 <morse_0>
+    845c:	caffffff 	bgt	8460 <morse_2_to_3>
+
+00008460 <morse_2_to_3>:
+    8460:	e3500032 	cmp	r0, #50	; 0x32
+    8464:	0affff27 	beq	8108 <morse_2>
+    8468:	caffff2c 	bgt	8120 <morse_3>
+
+0000846c <morse_5_to_9>:
+    846c:	e3500037 	cmp	r0, #55	; 0x37
+    8470:	0affff42 	beq	8180 <morse_7>
+    8474:	ba000000 	blt	847c <morse_5_to_6>
+    8478:	ca000002 	bgt	8488 <morse_8_to_9>
+
+0000847c <morse_5_to_6>:
+    847c:	e3500035 	cmp	r0, #53	; 0x35
+    8480:	0affff32 	beq	8150 <morse_5>
+    8484:	caffff37 	bgt	8168 <morse_6>
+
+00008488 <morse_8_to_9>:
+    8488:	e3500038 	cmp	r0, #56	; 0x38
+    848c:	0affff41 	beq	8198 <morse_8>
+    8490:	caffff46 	bgt	81b0 <morse_9>
+
+00008494 <morseLetter>:
+    8494:	e350005a 	cmp	r0, #90	; 0x5a
+    8498:	caffffd9 	bgt	8404 <loopIncrement>
+
+0000849c <morse_A_to_Z>:
+    849c:	e350004d 	cmp	r0, #77	; 0x4d
+    84a0:	0affff7a 	beq	8290 <morse_M>
+    84a4:	ba000000 	blt	84ac <morse_A_to_L>
+    84a8:	ca000018 	bgt	8510 <morse_N_to_Z>
+
+000084ac <morse_A_to_L>:
+    84ac:	e3500046 	cmp	r0, #70	; 0x46
+    84b0:	0affff57 	beq	8214 <morse_F>
+    84b4:	ba000000 	blt	84bc <morse_A_to_E>
+    84b8:	ca000009 	bgt	84e4 <morse_G_to_L>
+
+000084bc <morse_A_to_E>:
+    84bc:	e3500043 	cmp	r0, #67	; 0x43
+    84c0:	0affff48 	beq	81e8 <morse_C>
+    84c4:	ba000000 	blt	84cc <morse_A_to_B>
+    84c8:	ca000002 	bgt	84d8 <morse_D_to_E>
+
+000084cc <morse_A_to_B>:
+    84cc:	e3500041 	cmp	r0, #65	; 0x41
+    84d0:	0affff3c 	beq	81c8 <morse_A>
+    84d4:	caffff3e 	bgt	81d4 <morse_B>
+
+000084d8 <morse_D_to_E>:
+    84d8:	e3500044 	cmp	r0, #68	; 0x44
+    84dc:	0affff46 	beq	81fc <morse_D>
+    84e0:	caffff49 	bgt	820c <morse_E>
+
+000084e4 <morse_G_to_L>:
+    84e4:	e3500049 	cmp	r0, #73	; 0x49
+    84e8:	0affff57 	beq	824c <morse_I>
+    84ec:	ba000000 	blt	84f4 <morse_G_to_H>
+    84f0:	ca000002 	bgt	8500 <morse_J_to_L>
+
+000084f4 <morse_G_to_H>:
+    84f4:	e3500047 	cmp	r0, #71	; 0x47
+    84f8:	0affff4a 	beq	8228 <morse_G>
+    84fc:	caffff4d 	bgt	8238 <morse_H>
+
+00008500 <morse_J_to_L>:
+    8500:	e350004b 	cmp	r0, #75	; 0x4b
+    8504:	0affff58 	beq	826c <morse_K>
+    8508:	baffff52 	blt	8258 <morse_J>
+    850c:	caffff5a 	bgt	827c <morse_L>
+
+00008510 <morse_N_to_Z>:
+    8510:	e3500054 	cmp	r0, #84	; 0x54
+    8514:	0affff79 	beq	8300 <morse_T>
+    8518:	ba000000 	blt	8520 <morse_N_to_S>
+    851c:	ca00000a 	bgt	854c <morse_U_to_Z>
+
+00008520 <morse_N_to_S>:
+    8520:	e3500050 	cmp	r0, #80	; 0x50
+    8524:	0affff63 	beq	82b8 <morse_P>
+    8528:	ba000000 	blt	8530 <morse_N_to_O>
+    852c:	ca000002 	bgt	853c <morse_Q_to_S>
+
+00008530 <morse_N_to_O>:
+    8530:	e350004e 	cmp	r0, #78	; 0x4e
+    8534:	0affff58 	beq	829c <morse_N>
+    8538:	caffff5a 	bgt	82a8 <morse_O>
+
+0000853c <morse_Q_to_S>:
+    853c:	e3500052 	cmp	r0, #82	; 0x52
+    8540:	0affff66 	beq	82e0 <morse_R>
+    8544:	baffff60 	blt	82cc <morse_Q>
+    8548:	caffff68 	bgt	82f0 <morse_S>
+
+0000854c <morse_U_to_Z>:
+    854c:	e3500057 	cmp	r0, #87	; 0x57
+    8550:	0affff75 	beq	832c <morse_W>
+    8554:	ba000000 	blt	855c <morse_U_to_V>
+    8558:	ca000002 	bgt	8568 <morse_X_to_Z>
+
+0000855c <morse_U_to_V>:
+    855c:	e3500055 	cmp	r0, #85	; 0x55
+    8560:	0affff68 	beq	8308 <morse_U>
+    8564:	caffff6b 	bgt	8318 <morse_V>
+
+00008568 <morse_X_to_Z>:
+    8568:	e3500059 	cmp	r0, #89	; 0x59
+    856c:	0affff77 	beq	8350 <morse_Y>
+    8570:	baffff71 	blt	833c <morse_X>
+    8574:	caffff7a 	bgt	8364 <morse_Z>
+    8578:	2020001c 	.word	0x2020001c
+    857c:	20200028 	.word	0x20200028
+    8580:	011a0000 	.word	0x011a0000
+    8584:	20003004 	.word	0x20003004
+    8588:	20200008 	.word	0x20200008
+    858c:	00008590 	.word	0x00008590
