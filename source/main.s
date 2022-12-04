@@ -38,7 +38,7 @@ MainLoop:
         ldrb r0, [r8]                @ load one byte (-> one letter!) at r8 into r0
         cmp r0, #0                   @ check if value is null -> break
         beq endOfString
-        cmp r0, #97                   @ check if < 97; ASCII boundary for lower case letter
+        cmp r0, #97                  @ check if < 97; ASCII boundary for lower case letter
         blt checkMorse
         cmp r0, #122                 @ check if > 122; ASCII boundary for lower case letter
         bgt checkMorse
@@ -51,7 +51,8 @@ MainLoop:
 
 loopIncrement:
     add r9, #1               @ increment offset
-    @ Pause zwischen Buchstaben
+    bl initialise_OFF_BETWEEN_LETTERS
+    bl execute_WAIT
     b convertToUpperCase
 
 checkMorse:

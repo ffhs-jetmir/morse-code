@@ -1,4 +1,4 @@
-@ ----- Morse instructions; TODO: extract to separate file --------------------
+@ ----- Morse instructions --------------------
 initialise_DOT:
    ldr r2,=DOT
    ldr r0,=GPSET0
@@ -16,7 +16,13 @@ initialise_OFF:
    ldr r0,=GPCLR0
    str r1,[r0]
    bx lr
-   
+
+initialise_OFF_BETWEEN_LETTERS:
+   ldr r2,=BETWEEN_LETTERS
+   ldr r0,=GPCLR0
+   str r1,[r0]
+   bx lr
+
 execute_WAIT:
    sub r2,#1
    cmp r2,#0   
@@ -27,7 +33,6 @@ morse_DOT:
    mov r5,lr
    bl initialise_DOT
    bl execute_WAIT
-   @ TODO: Because we turn the pin off again, we need to do a minus 1 on BETWEEN_LETTERS and BETWEEN_WORDS
    bl initialise_OFF
    bl execute_WAIT
    bx r5

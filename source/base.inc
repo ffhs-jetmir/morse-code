@@ -10,6 +10,5 @@
 .equ DOT, 0x2F0000
 .equ DASH, 2 * DOT
 .equ WITHIN_LETTER_SPACE, DOT
-//Because we turn the pin off again, we need to do a minus 1 on BETWEEN_LETTERS and BETWEEN_WORDS
-.equ BETWEEN_LETTERS, DASH  @ 3 * Dot - 1 for compensation
-.equ BETWEEN_WORDS, 6 * DOT @ 7 * Dot - 1 for compensation
+.equ BETWEEN_LETTERS, DASH          @ 3 * Dot - 1 for compensation
+.equ BETWEEN_WORDS, 6 * DOT         @ 7 * Dot - 1 for compensation
