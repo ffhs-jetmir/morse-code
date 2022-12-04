@@ -23,6 +23,12 @@ initialise_OFF_BETWEEN_LETTERS:
    str r1,[r0]
    bx lr
 
+initialise_OFF_BETWEEN_WORDS:
+   ldr r2,=BETWEEN_WORDS
+   ldr r0,=GPCLR0
+   str r1,[r0]
+   bx lr
+
 execute_WAIT:
    sub r2,#1
    cmp r2,#0   
@@ -67,11 +73,9 @@ morseEndSignal:
 @ ---------------------------------------
 
 morseSpace:
-    bl morse_DOT
-    bl morse_DASH
-    bl morse_DOT
-    bl morse_DASH
-    bl morse_DOT
+    bl initialise_OFF_BETWEEN_WORDS
+    bl execute_WAIT
+    b loopIncrement
     b loopIncrement
 
 
