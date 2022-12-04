@@ -7,7 +7,7 @@
 @ ---------------------
 
 @ length of morse "ingredients"
-.equ DOT, 0x2F0000
+.equ DOT, 0x8F0000
 .equ DASH, 3 * DOT
 .equ WITHIN_LETTER_SPACE, DOT
 .equ BETWEEN_LETTERS, 2 * DOT       @ 3 * Dot - 1 for compensation

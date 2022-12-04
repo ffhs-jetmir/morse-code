@@ -67,6 +67,8 @@ checkMorse:
 
 endOfString:
     bl morseEndSignal       @ start again with morse signal
+    bl initialise_OFF_BETWEEN_LETTERS
+    bl execute_WAIT
 b MainLoop
 
 
