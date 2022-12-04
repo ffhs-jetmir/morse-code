@@ -36,39 +36,39 @@ execute_WAIT:
    bx lr
   
 morse_DOT:
-   mov r5,lr
+   push {lr}                    @ Saves lr to stack
    bl initialise_DOT
    bl execute_WAIT
    bl initialise_OFF
    bl execute_WAIT
-   bx r5
+   pop {pc}                     @ pop into the program counter to return from function
    
 morse_DASH:
-   mov r5,lr                    @ Saves lr to r5
+   push {lr}                    @ Saves lr to stack
    bl initialise_DASH           @ lr gets overwritten
    bl execute_WAIT
    bl initialise_OFF
    bl execute_WAIT
-   bx r5                        @ Jumps Back to main
+   pop {pc}                     @ pop into the program counter to return from function
 
 @ ---------------------------------------
 morseStartSignal:
-    mov r6,lr                    @ Saves lr to r6
+    push {lr}                    @ Saves lr to stack
     bl morse_DASH
     bl morse_DOT
     bl morse_DASH
     bl morse_DOT
     bl morse_DASH
-    bx r6
+    pop {pc}                     @ pop into the program counter to return from function
 
 morseEndSignal:
-    mov r6,lr                    @ Saves lr to r6
+    push {lr}                    @ Saves lr to stack
     bl morse_DOT
     bl morse_DASH
     bl morse_DOT
     bl morse_DASH
     bl morse_DOT
-    bx r6
+    pop {pc}                     @ pop into the program counter to return from function
 
 @ ---------------------------------------
 
