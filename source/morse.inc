@@ -71,7 +71,6 @@ morseEndSignal:
     pop {pc}                     @ pop into the program counter to return from function
 
 @ Special characters ---------------------------------------
-
 morseSpace:
     bl initialise_OFF_BETWEEN_WORDS
     bl execute_WAIT

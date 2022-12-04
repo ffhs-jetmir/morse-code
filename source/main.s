@@ -1,5 +1,3 @@
-@ https://community.arm.com/arm-community-blogs/b/architectures-and-processors-blog/posts/how-to-call-a-function-from-arm-assembler
-
 .include "base.inc"
 .include "morse.inc"
 /*
@@ -32,7 +30,7 @@ MainLoop:
     bl initialise_OFF
     bl morseStartSignal
     ldr r10, =morseString            @ load address of string into register
-    mov r9,#0                        @ r9: counter of iterations
+    mov r9,#0                        @ r9: counter of iterations, offset zu base adress
     convertToUpperCase:              @ while loop
         add r8, r9, r10
         ldrb r0, [r8]                @ load one byte (-> one letter!) at r8 into r0
@@ -51,7 +49,7 @@ MainLoop:
 
 loopIncrement:
     add r9, #1               @ increment offset
-    bl initialise_OFF_BETWEEN_LETTERS
+    bl initialise_OFF_BETWEEN_LETTERS   @ pause before morsing starts again
     bl execute_WAIT
     b convertToUpperCase
 
