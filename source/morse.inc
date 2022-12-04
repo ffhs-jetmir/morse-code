@@ -1,4 +1,4 @@
-@ ----- Morse instructions --------------------
+@ Morse instructions --------------------
 initialise_DOT:
    ldr r2,=DOT
    ldr r0,=GPSET0
@@ -51,7 +51,7 @@ morse_DASH:
    bl execute_WAIT
    pop {pc}                     @ pop into the program counter to return from function
 
-@ ---------------------------------------
+@ Special signals ---------------------------------------
 morseStartSignal:
     push {lr}                    @ Saves lr to stack
     bl morse_DASH
@@ -70,7 +70,7 @@ morseEndSignal:
     bl morse_DOT
     pop {pc}                     @ pop into the program counter to return from function
 
-@ ---------------------------------------
+@ Special characters ---------------------------------------
 
 morseSpace:
     bl initialise_OFF_BETWEEN_WORDS
@@ -78,8 +78,34 @@ morseSpace:
     b loopIncrement
     b loopIncrement
 
+morseComma:
+    bl morse_DOT
+    bl morse_DOT
+    bl morse_DASH
+    bl morse_DOT
+    bl morse_DOT
+    b loopIncrement
 
-@ numbers ------------------------- 
+morseFullStop:
+    bl morse_DOT
+    bl morse_DASH
+    bl morse_DOT
+    bl morse_DASH
+    bl morse_DOT
+    bl morse_DASH
+    b loopIncrement
+
+morseQuestionMark:
+    bl morse_DOT
+    bl morse_DOT
+    bl morse_DASH
+    bl morse_DASH
+    bl morse_DOT
+    bl morse_DOT
+    b loopIncrement
+    
+
+@ Numbers ------------------------- 
 morse_0:
     bl morse_DASH
     bl morse_DASH

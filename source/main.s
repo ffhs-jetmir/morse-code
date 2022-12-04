@@ -58,6 +58,12 @@ loopIncrement:
 checkMorse:
     cmp r0, #32
     beq morseSpace
+    cmp r0, #33
+    beq morseComma
+    cmp r0, #46
+    beq morseFullStop
+    cmp r0, #63
+    beq morseQuestionMark
     cmp r0, #57             @ 9
     ble morseNumber
     cmp r0, #65             @ A
