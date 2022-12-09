@@ -59,6 +59,8 @@ morseStartSignal:
     bl morse_DASH
     bl morse_DOT
     bl morse_DASH
+    bl initialise_OFF_BETWEEN_WORDS
+    bl execute_WAIT
     pop {pc}                     @ pop into the program counter to return from function
 
 morseEndSignal:
@@ -74,7 +76,6 @@ morseEndSignal:
 morseSpace:
     bl initialise_OFF_BETWEEN_WORDS
     bl execute_WAIT
-    b loopIncrement
     b loopIncrement
 
 morseComma:

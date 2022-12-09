@@ -6,10 +6,11 @@
 
 .section .data
 morseString:                        @ string saved in RAM
-@ each letter is 8-bits (= 1 Byte) -> can use byte loader; .asciz := string, which ends with 0
-.asciz "soS 9@"                     
+@ each letter is 8-bits (= 1 Byte) -> can use byte loader; 
+@ .asciz := string, which ends with 0
+.asciz "HeLlo 9@?"                     
 
-.section .init  @ nicht sicher ob notwendig, CPUlator wollte das so
+.section .init 
 .globl _start
 _start:
 
@@ -48,20 +49,22 @@ MainLoop:
     b convertToUpperCase
 
 loopIncrement:
-    add r9, #1               @ increment offset
-    bl initialise_OFF_BETWEEN_LETTERS   @ pause before morsing starts again
+    add r9, #1                          @ increment offset
+    bl initialise_OFF_BETWEEN_WORDS   @ pause before morsing starts again
     bl execute_WAIT
     b convertToUpperCase
 
 checkMorse:
+    @ special characters are checked individually
     cmp r0, #32
-    beq morseSpace
+    beq morseSpace          @ special implementation: pause (OFF_BETWEEN_WORDS)
     cmp r0, #33
     beq morseComma
     cmp r0, #46
     beq morseFullStop
     cmp r0, #63
     beq morseQuestionMark
+    @ binary trees
     cmp r0, #57             @ 9
     ble morseNumber
     cmp r0, #65             @ A
@@ -77,6 +80,7 @@ b MainLoop
 
 
 @ both, morseNumber and morseLetter are implemented as (individual) binary trees
+@ routines for cases (letters, etc) are included in morse.inc
 morseNumber:
     cmp r0, #48
     blt loopIncrement
@@ -113,7 +117,7 @@ morse_8_to_9:
     beq morse_8
     bgt morse_9
 
-
+@ ---------------------------------------------
 morseLetter:
     cmp r0, #90
     bgt loopIncrement
@@ -201,5 +205,3 @@ morse_X_to_Z:
     beq morse_Y
     blt morse_X
     bgt morse_Z
-
-
