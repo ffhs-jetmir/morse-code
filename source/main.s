@@ -1,8 +1,6 @@
 .include "base.inc"
 .include "morse.inc"
-/*
-.include "timer.inc" 
-*/
+
 
 .section .data
 morseString:                        @ string saved in RAM
